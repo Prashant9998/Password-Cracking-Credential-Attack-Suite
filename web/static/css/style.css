@@ -1,0 +1,267 @@
+/* Custom Styles for Password Cracking Suite */
+
+:root {
+    --primary-color: #ef4444;
+    --secondary-color: #3b82f6;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #1f2937;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+}
+
+.tab-content {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content:not(.active) {
+    display: none;
+}
+
+/* Button Styles */
+button {
+    transition: all 0.3s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.bg-red-600:hover {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+.bg-blue-600:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.bg-yellow-600:hover {
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
+}
+
+.bg-purple-600:hover {
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+}
+
+.bg-green-600:hover {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea,
+select {
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus,
+textarea:focus,
+select:focus {
+    transform: translateY(-2px);
+}
+
+/* Checkbox Styles */
+input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: #fbbf24;
+}
+
+/* Card Hover Effects */
+.bg-gray-800 {
+    transition: all 0.3s ease;
+}
+
+.bg-gray-800:hover {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Result Display */
+#identifyResult,
+#wordlistResult,
+#attackResult {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+/* Loading Spinner */
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .sticky {
+        position: static;
+    }
+}
+
+/* Text Selection */
+::selection {
+    background-color: rgba(239, 68, 68, 0.3);
+    color: #fff;
+}
+
+/* Code/Mono Text */
+.font-mono {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Gradient Background */
+.bg-gradient-to-br {
+    background-image: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%);
+}
+
+/* Border Glow Effect */
+.border-red-500 {
+    box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.1);
+}
+
+/* Tab Active Indicator */
+.tab-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ef4444, transparent);
+    transition: left 0.3s ease;
+}
+
+.tab-btn:hover::after {
+    left: 100%;
+}
+
+/* Status Indicators */
+.text-green-400 {
+    color: #4ade80;
+}
+
+.text-red-500 {
+    color: #ef4444;
+}
+
+.text-yellow-500 {
+    color: #eab308;
+}
+
+.text-blue-400 {
+    color: #60a5fa;
+}
+
+/* Tooltip */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Success Message */
+.success-message {
+    background-color: rgba(16, 185, 129, 0.1);
+    border-left: 4px solid #10b981;
+    padding: 12px;
+    border-radius: 4px;
+    color: #4ade80;
+}
+
+/* Error Message */
+.error-message {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid #ef4444;
+    padding: 12px;
+    border-radius: 4px;
+    color: #fca5a5;
+}
+
+/* Report Item */
+.report-item {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.report-item:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-color: #3b82f6;
+    transform: translateX(5px);
+}

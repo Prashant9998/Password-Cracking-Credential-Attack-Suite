@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Cracking & Credential Attack Suite</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100">
+    <div class="min-h-screen">
+        <!-- Navigation Bar -->
+        <nav class="bg-gray-950 border-b border-gray-700 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-lock text-red-500 text-2xl"></i>
+                        <h1 class="text-2xl font-bold text-white">Password Cracking Suite</h1>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        <i class="fas fa-shield-alt"></i> Security Audit Tool
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Container -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Tabs Navigation -->
+            <div class="flex space-x-4 mb-8 border-b border-gray-700">
+                <button class="tab-btn active px-4 py-2 border-b-2 border-red-500 text-white font-semibold transition" data-tab="hash-identify">
+                    <i class="fas fa-fingerprint"></i> Hash Identify
+                </button>
+                <button class="tab-btn px-4 py-2 border-b-2 border-transparent text-gray-400 hover:text-white font-semibold transition" data-tab="wordlist-gen">
+                    <i class="fas fa-list"></i> Generate Wordlist
+                </button>
+                <button class="tab-btn px-4 py-2 border-b-2 border-transparent text-gray-400 hover:text-white font-semibold transition" data-tab="attack">
+                    <i class="fas fa-bolt"></i> Run Attack
+                </button>
+                <button class="tab-btn px-4 py-2 border-b-2 border-transparent text-gray-400 hover:text-white font-semibold transition" data-tab="reports">
+                    <i class="fas fa-file-pdf"></i> Reports
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content Area -->
+                <div class="lg:col-span-2">
+                    <!-- Hash Identification Tab -->
+                    <div id="hash-identify" class="tab-content active bg-gray-800 rounded-lg p-8 border border-gray-700 shadow-xl">
+                        <h2 class="text-2xl font-bold mb-6 text-white">
+                            <i class="fas fa-fingerprint text-red-500"></i> Hash Type Identification
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Enter Hash String</label>
+                                <textarea id="hashInput" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50" rows="4" placeholder="Paste your hash here..."></textarea>
+                            </div>
+                            <button id="identifyBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition transform hover:scale-105">
+                                <i class="fas fa-search"></i> Identify Hash
+                            </button>
+                        </div>
+                        <div id="identifyResult" class="mt-6 hidden bg-gray-700 rounded-lg p-4 border border-gray-600">
+                            <h3 class="text-lg font-semibold text-green-400 mb-2">Result:</h3>
+                            <p class="text-gray-300"><strong>Hash Type:</strong> <span id="resultHashType" class="text-green-400"></span></p>
+                            <p class="text-gray-300 mt-2"><strong>Hash:</strong> <span id="resultHash" class="text-gray-400 break-all text-sm"></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Wordlist Generation Tab -->
+                    <div id="wordlist-gen" class="tab-content hidden bg-gray-800 rounded-lg p-8 border border-gray-700 shadow-xl">
+                        <h2 class="text-2xl font-bold mb-6 text-white">
+                            <i class="fas fa-list text-blue-500"></i> Generate Custom Wordlist
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                                <input type="text" id="nameInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500" placeholder="e.g., John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Date of Birth (YYYY-MM-DD)</label>
+                                <input type="text" id="dobInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500" placeholder="e.g., 1990-01-15">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Keywords (comma-separated)</label>
+                                <input type="text" id="keywordsInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500" placeholder="e.g., company, project">
+                            </div>
+                            <button id="generateBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition transform hover:scale-105">
+                                <i class="fas fa-magic"></i> Generate Wordlist
+                            </button>
+                        </div>
+                        <div id="wordlistResult" class="mt-6 hidden bg-gray-700 rounded-lg p-4 border border-gray-600">
+                            <h3 class="text-lg font-semibold text-blue-400 mb-2">Generated Wordlist:</h3>
+                            <p class="text-gray-300 mb-3"><strong>Total Words:</strong> <span id="wordlistCount" class="text-blue-400"></span></p>
+                            <textarea id="wordlistOutput" class="w-full px-4 py-3 bg-gray-600 border border-gray-500 rounded-lg text-white text-sm h-40" readonly></textarea>
+                            <button id="copyWordlistBtn" class="mt-3 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                                <i class="fas fa-copy"></i> Copy to Clipboard
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Attack Tab -->
+                    <div id="attack" class="tab-content hidden bg-gray-800 rounded-lg p-8 border border-gray-700 shadow-xl">
+                        <h2 class="text-2xl font-bold mb-6 text-white">
+                            <i class="fas fa-bolt text-yellow-500"></i> Run Attack
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Target Hash</label>
+                                <textarea id="attackHashInput" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500" rows="3" placeholder="Paste the hash to crack..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Attack Type</label>
+                                <select id="attackTypeSelect" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500">
+                                    <option value="dictionary">Dictionary Attack</option>
+                                    <option value="brute_force">Brute-Force Attack</option>
+                                </select>
+                            </div>
+
+                            <!-- Dictionary Attack Options -->
+                            <div id="dictionaryOptions" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Wordlist Source</label>
+                                    <select id="wordlistSourceSelect" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500">
+                                        <option value="generate">Generate from Data</option>
+                                        <option value="upload">Upload File</option>
+                                    </select>
+                                </div>
+                                <div id="generateFromDataOptions" class="space-y-3">
+                                    <input type="text" id="attackNameInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500" placeholder="Name (optional)">
+                                    <input type="text" id="attackDobInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500" placeholder="DOB YYYY-MM-DD (optional)">
+                                    <input type="text" id="attackKeywordsInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500" placeholder="Keywords comma-separated (optional)">
+                                </div>
+                                <div id="uploadFileOptions" class="hidden">
+                                    <input type="file" id="wordlistFileInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500">
+                                </div>
+                                <label class="flex items-center space-x-2 text-gray-300 cursor-pointer">
+                                    <input type="checkbox" id="mutateCheckbox" class="w-4 h-4 bg-gray-700 border-gray-600 rounded focus:ring-yellow-500">
+                                    <span>Apply Mutation Rules</span>
+                                </label>
+                            </div>
+
+                            <!-- Brute-Force Attack Options -->
+                            <div id="bruteForceOptions" class="space-y-4 hidden">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Maximum Length</label>
+                                    <input type="number" id="maxLengthInput" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500" value="4" min="1" max="10">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Character Set</label>
+                                    <select id="charsetSelect" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500">
+                                        <option value="">Lowercase + Numbers (default)</option>
+                                        <option value="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789">Alphanumeric</option>
+                                        <option value="0123456789">Numbers Only</option>
+                                        <option value="abcdefghijklmnopqrstuvwxyz">Lowercase Only</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button id="attackBtn" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded-lg transition transform hover:scale-105">
+                                <i class="fas fa-play"></i> Start Attack
+                            </button>
+                        </div>
+
+                        <!-- Attack Progress -->
+                        <div id="attackProgress" class="mt-6 hidden">
+                            <div class="flex items-center space-x-3">
+                                <div class="animate-spin">
+                                    <i class="fas fa-spinner text-yellow-500 text-2xl"></i>
+                                </div>
+                                <span class="text-gray-300">Attack in progress...</span>
+                            </div>
+                        </div>
+
+                        <!-- Attack Result -->
+                        <div id="attackResult" class="mt-6 hidden bg-gray-700 rounded-lg p-4 border border-gray-600">
+                            <h3 class="text-lg font-semibold text-green-400 mb-3">Attack Result:</h3>
+                            <div class="space-y-2">
+                                <p class="text-gray-300"><strong>Status:</strong> <span id="resultStatus" class="text-green-400"></span></p>
+                                <p class="text-gray-300"><strong>Hash Type:</strong> <span id="resultAttackHashType" class="text-gray-400"></span></p>
+                                <p id="passwordFoundDiv" class="text-gray-300 hidden"><strong>Password Found:</strong> <span id="resultPassword" class="text-green-400 font-mono"></span></p>
+                                <div id="strengthAnalysis" class="mt-4 hidden bg-gray-600 rounded p-3">
+                                    <h4 class="text-blue-400 font-semibold mb-2">Password Strength Analysis:</h4>
+                                    <p class="text-gray-300"><strong>Score:</strong> <span id="resultScore" class="text-blue-400"></span></p>
+                                    <p class="text-gray-300"><strong>Entropy:</strong> <span id="resultEntropy" class="text-blue-400"></span></p>
+                                    <p class="text-gray-300"><strong>Crack Time:</strong> <span id="resultCrackTime" class="text-blue-400"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports Tab -->
+                    <div id="reports" class="tab-content hidden bg-gray-800 rounded-lg p-8 border border-gray-700 shadow-xl">
+                        <h2 class="text-2xl font-bold mb-6 text-white">
+                            <i class="fas fa-file-pdf text-purple-500"></i> Generated Reports
+                        </h2>
+                        <button id="refreshReportsBtn" class="mb-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                        <div id="reportsList" class="space-y-3">
+                            <p class="text-gray-400">Loading reports...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Info -->
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-800 rounded-lg p-6 border border-gray-700 shadow-xl sticky top-8">
+                        <h3 class="text-xl font-bold text-white mb-4">
+                            <i class="fas fa-info-circle text-blue-500"></i> Information
+                        </h3>
+                        <div class="space-y-4 text-sm text-gray-300">
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-1">Hash Identification</h4>
+                                <p>Automatically detect hash types based on length and patterns (MD5, SHA-1, SHA-256, etc.)</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-1">Dictionary Attack</h4>
+                                <p>Uses wordlists with optional rule-based mutations to crack passwords.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-1">Brute-Force Attack</h4>
+                                <p>Tries all possible combinations within specified length and character set.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-400 mb-1">Password Strength</h4>
+                                <p>Analyzes password entropy and provides security recommendations.</p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-700">
+                                <p class="text-xs text-gray-500">
+                                    <i class="fas fa-warning text-yellow-500"></i> For educational and authorized testing only.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

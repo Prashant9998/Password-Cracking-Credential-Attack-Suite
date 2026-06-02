@@ -18,9 +18,15 @@ from advanced.report_generator import ReportGenerator
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
+# Define reports directory based on environment (Vercel has read-only filesystem except for /tmp)
+if os.environ.get('VERCEL'):
+    reports_dir = os.path.join('/tmp', 'reports')
+else:
+    reports_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'reports')
+
 # Initialize components
 rule_mutator = RuleMutator()
-report_generator = ReportGenerator(output_dir=os.path.join(os.path.dirname(os.path.dirname(__file__)), 'reports'))
+report_generator = ReportGenerator(output_dir=reports_dir)
 
 @app.route('/')
 def index():
@@ -140,7 +146,6 @@ def api_attack():
 def api_reports():
     """API endpoint to list generated reports."""
     try:
-        reports_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'reports')
         if not os.path.exists(reports_dir):
             return jsonify({'reports': [], 'success': True})
         
@@ -159,7 +164,6 @@ def api_reports():
 def api_download_report(filename):
     """API endpoint to download a report."""
     try:
-        reports_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'reports')
         file_path = os.path.join(reports_dir, filename)
         
         # Security check: ensure file is in reports directory

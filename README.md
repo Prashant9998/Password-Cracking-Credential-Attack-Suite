@@ -73,4 +73,6 @@ password_cracker/
 
 ## Disclaimer
 
-This tool is for **educational and authorized security testing purposes only**. Unauthorized access to computer systems is illegal. Use responsibly and ethically.
+This tool is for **educational and authorized security testing purposes only**. Unauthorized access to computer systems is illegal. Use responsibly and ethically
+final 
+

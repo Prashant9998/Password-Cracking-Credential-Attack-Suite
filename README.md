@@ -19,7 +19,7 @@ An advanced, multi-functional tool for security auditing and educational purpose
     cd password_cracker
     ```
 
-2.  **Install dependencies**:
+3.  **Install dependencies**:
     ```bash
     pip install zxcvbn fpdf
     ```

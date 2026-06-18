@@ -12,7 +12,6 @@ An advanced, multi-functional tool for security auditing and educational purpose
 - **Automated Reporting**: Generate comprehensive PDF and text reports summarizing audit results and recommendations.
 
 ## Installation
-
 1.  **Clone the repository**:
     ```bash
     git clone https://github.com/yourusername/password_cracker.git

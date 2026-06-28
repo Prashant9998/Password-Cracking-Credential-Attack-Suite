@@ -22,7 +22,6 @@ An advanced, multi-functional tool for security auditing and educational purpose
     ```bash
     pip install zxcvbn fpdf
     ```
-
 ## Usage
 
 The suite is accessible via the `cli.py` command-line interface.
